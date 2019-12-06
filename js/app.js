@@ -37,6 +37,7 @@ function showAlert(color, message) {
   alert.classList.add(`alert-` + color, 'p-1');
   alert.innerText = message;
   isSetAlert = 1;
+  animate(alert, 'shake');
 
   setTimeout(() => {
     alert.classList.remove(`alert-` + color, 'p-1');
@@ -65,6 +66,7 @@ generateEl.addEventListener('click', () => {
     showAlert('danger', 'Password Max-length is 16');
   } else {
     resultEl.innerText = generatePassword(hasLower, hasUpper, hasNumber, hasSymbol, length);
+    animate(resultEl, 'jackInTheBox');
   }
 });
 
@@ -88,7 +90,7 @@ function generatePassword(lower, upper, number, symbol, length) {
 
   for (let i = 0; i < length; i += typesCount) {
     typesArr.forEach(type => {
-      const funcName = Object.keys(type)[0];  
+      const funcName = Object.keys(type)[0];
       generatedPassword += randomFunc[funcName]();
     });
   }
@@ -111,4 +113,11 @@ function getRandomNumber() {
 function getRandomSymbol() {
   const symbols = '@!#$&*';
   return symbols[Math.floor(Math.random() * symbols.length)];
+}
+
+function animate(element, animation) {
+  element.classList.add('animated', animation);
+  const wait = setTimeout(() => {
+    element.classList.remove('animated', animation);
+  }, 900);
 }
