@@ -32,26 +32,23 @@ clipboardEl.addEventListener('click', function () {
 });
 
 function showAlert(color, message) {
-  clearAlert();
+
   const alert = document.getElementById('alert');
-  alert.classList.add(`alert-` + color, 'p-1');
-  alert.innerText = message;
-  isSetAlert = 1;
-  animate(alert, 'shake');
+  if (!alert.classList.contains(`alert-` + color, 'p-1')) {
+    alert.classList.add(`alert-` + color, 'p-1');
+    alert.innerText = message;
+    animate(alert, 'shake');
 
-  setTimeout(() => {
-    alert.classList.remove(`alert-` + color, 'p-1');
-    alert.innerText = '';
-    isSetAlert = 0;
-  }, 2000);
-}
+    setTimeout(() => {
+      alert.classList.remove(`alert-` + color, 'p-1');
+      alert.innerText = '';
+    }, 2000);
 
-function clearAlert() {
-  if (isSetAlert) {
-    alert.classList.remove(`alert-` + color, 'p-1');
-    alert.innerText = '';
   }
+
 }
+
+
 
 generateEl.addEventListener('click', () => {
   const length = +lengthEl.value;
@@ -59,7 +56,6 @@ generateEl.addEventListener('click', () => {
   const hasUpper = uppercaseEl.checked;
   const hasNumber = numbersEl.checked;
   const hasSymbol = symbolsEl.checked;
-  console.log(hasLower, hasUpper, hasNumber, hasSymbol);
   if (length == 0) {
     showAlert('danger', 'Enter Length...');
   } else if (length > 16) {
